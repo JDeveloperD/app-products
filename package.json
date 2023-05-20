@@ -7,7 +7,7 @@
     "dev": "tsnd -r tsconfig-paths/register src/index.ts",
     "build": "tsc",
     "lint": "",
-    "format": "prettier --format ./src/**/*.ts",
+    "format": "prettier -w ./src/**/*.ts",
     "test": "jest",
     "prepare": "husky install"
   },
