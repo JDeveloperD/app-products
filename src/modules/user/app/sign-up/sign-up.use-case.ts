@@ -6,7 +6,7 @@ import {
   createPassword,
   encryptPassword,
 } from "../../domain/value-objects/password.value-object";
-import { type User } from "../../domain/user.entity";
+import { type Role, type User } from "../../domain/user.entity";
 import { createEmail } from "../../domain/value-objects/email.value-object";
 
 export default function signUpUseCase(
@@ -34,25 +34,24 @@ export default function signUpUseCase(
         const isEmailAlreadyInUse = await repository.existsByEmail(dto.email);
 
         if (isEmailAlreadyInUse) {
-          right("Email Already in use");
+          return left("Email Already in use");
         }
 
         const email = emailOrError.right.value;
-        const password = encryptPassword(passwordOrError.right.value);
+        const password = await encryptPassword(passwordOrError.right.value);
+        const role: Role = "CLIENT";
+        const { acceptedTerm } = dto;
 
-        const user: User = {
-          id: "123sa",
+        const user: Partial<User> = {
           email,
           password,
-          isActive: false,
-          isTheEmailConfirmed: false,
-          role: "CLIENT",
-          acceptedTerm: dto.acceptedTerm,
+          role,
+          acceptedTerm,
         };
 
-        await repository.save(user);
+        const userCreated = await repository.save(user);
 
-        return right(user);
+        return right(userCreated);
       } catch (e) {
         return left("Internal Server Error on SignUp UseCase");
       }

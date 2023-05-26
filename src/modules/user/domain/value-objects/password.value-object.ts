@@ -1,4 +1,5 @@
 import { type Either, left, right } from "fp-ts/Either";
+import bcrypt from "bcrypt";
 
 export const MIN_PASSWORD_LENGTH = 5;
 export const MAX_PASSWORD_LENGTH = 21;
@@ -22,13 +23,15 @@ export const createPassword = ({
   return right({ value });
 };
 
-export const comparePassword = (
-  encryptText: string,
+export const comparePassword = async (
+  hash: string,
   plainText: string
-): boolean => {
-  return true;
+): Promise<boolean> => {
+  return await bcrypt.compare(plainText, hash);
 };
 
-export const encryptPassword = (plainText: string): string => {
-  return "12!#!#";
+export const encryptPassword = async (plainText: string): Promise<string> => {
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  return await bcrypt.hash(plainText, salt);
 };

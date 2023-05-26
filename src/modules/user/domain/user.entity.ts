@@ -19,8 +19,8 @@ export interface User {
   isTheEmailConfirmed: boolean;
   isActive: boolean;
   acceptedTerm: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const createUser = (user: User): Either<never, User> => {
