@@ -1,5 +1,5 @@
-import { type Repository } from "../../../common/types";
 import { type User } from "./user.entity";
+import { type Repository } from "../../../common";
 
 export interface UserRepository extends Repository<User> {
   existsByEmail: (email: string) => Promise<boolean>;

@@ -1,15 +1,8 @@
-import { type Either, right } from "fp-ts/Either";
-import { type UID } from "../../../common/types";
+import * as either from "fp-ts/Either";
+import { type Role } from "./user-roles.enum";
+import { type UID } from "../../../common";
 
 export type UserId = UID;
-
-export enum Roles {
-  "DEVELOPER",
-  "ADMIN",
-  "CLIENT",
-}
-
-export type Role = keyof typeof Roles;
 
 export interface User {
   id: UserId;
@@ -23,11 +16,11 @@ export interface User {
   updatedAt: Date;
 }
 
-export const createUser = (user: User): Either<never, User> => {
-  return right(user);
+const createUser = (user: User): either.Either<never, User> => {
+  return either.right(user);
 };
 
-export const toggleActivate = (user: User): User => {
+const toggleActivate = (user: User): User => {
   return {
     ...user,
     isActive: !user.isActive,
@@ -35,23 +28,25 @@ export const toggleActivate = (user: User): User => {
   };
 };
 
-export const confirmEmail = (user: User): User => {
+const confirmEmail = (user: User): User => {
   return {
     ...user,
     isTheEmailConfirmed: true,
     updatedAt: new Date(),
   };
 };
-export const changeRole = ({
-  user,
-  role,
-}: {
-  user: User;
-  role: Role;
-}): User => {
+
+const changeRole = ({ user, role }: { user: User; role: Role }): User => {
   return {
     ...user,
     role,
     updatedAt: new Date(),
   };
+};
+
+export default {
+  createUser,
+  changeRole,
+  confirmEmail,
+  toggleActivate,
 };

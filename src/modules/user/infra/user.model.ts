@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { type User, Roles } from "../domain/user.entity";
+import { type User } from "../domain/user.entity";
+import { Roles } from "../domain/user-roles.enum";
 
 const UserSchema = new Schema<User>(
   {
@@ -34,6 +35,12 @@ const UserSchema = new Schema<User>(
     versionKey: false,
     id: true,
     toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+    toObject: {
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;

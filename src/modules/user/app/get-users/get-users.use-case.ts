@@ -1,16 +1,14 @@
-import { type UseCase } from "../../../../common/types";
-import { type Either, right } from "fp-ts/Either";
-import { type User } from "../../domain/user.entity";
-import { type UserRepository } from "../../domain/user.repository";
+import * as either from "fp-ts/Either";
+import { type User, type UserRepository } from "../../domain";
+import { type UseCase } from "../../../../common";
 
 export default function getUsersUSeCase(
   repository: UserRepository
-): UseCase<undefined, Either<unknown, User[]>> {
+): UseCase<undefined, either.Either<unknown, User[]>> {
   return {
-    async execute(): Promise<Either<unknown, User[]>> {
+    async execute(): Promise<either.Either<unknown, User[]>> {
       const users = await repository.getMatching();
-
-      return right(users);
+      return either.right(users);
     },
   };
 }

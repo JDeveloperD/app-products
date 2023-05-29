@@ -7,9 +7,7 @@ export interface EmailProps {
   value: string;
 }
 
-export const createEmail = ({
-  value,
-}: EmailProps): Either<string, EmailProps> => {
+const createEmail = ({ value }: EmailProps): Either<string, EmailProps> => {
   const isValid = isValidEmail(value);
 
   if (!isValid) {
@@ -19,4 +17,8 @@ export const createEmail = ({
   const lowerCaseEmail = value.toLowerCase();
 
   return right({ value: lowerCaseEmail });
+};
+
+export default {
+  createEmail,
 };

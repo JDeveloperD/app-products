@@ -1,7 +1,6 @@
-import { type UserRepository } from "../domain/user.repository";
-import { type User } from "../domain/user.entity";
-import { type Query } from "../../../common/types";
 import UserModel from "./user.model";
+import { type User, type UserId, type UserRepository } from "../domain";
+import { type Query } from "../../../common";
 
 export default function userMongooseRepository(): UserRepository {
   return {
@@ -13,14 +12,14 @@ export default function userMongooseRepository(): UserRepository {
     }: Partial<User>): Promise<User> {
       return await UserModel.create({ email, password, role, acceptedTerm });
     },
-    async delete(id: any): Promise<boolean> {
+    async delete(id: UserId): Promise<boolean> {
       throw new Error("not implemented");
     },
-    async getById(id: any): Promise<User | null> {
-      throw new Error("not implemented");
+    async getById(id: UserId): Promise<User | null> {
+      return await UserModel.findOne({ _id: id }, { password: 0 });
     },
     async getMatching(query: Query<User> | undefined): Promise<User[]> {
-      return await UserModel.find().exec();
+      return await UserModel.find({}, { password: 0 }).exec();
     },
     async update(payload: Partial<User>): Promise<User | null> {
       throw new Error("not implemented");
@@ -30,7 +29,7 @@ export default function userMongooseRepository(): UserRepository {
       return user !== null;
     },
     async findByEmail(email: string): Promise<User | null> {
-      return await UserModel.findOne({ email }).exec();
+      return await UserModel.findOne({ email });
     },
   };
 }

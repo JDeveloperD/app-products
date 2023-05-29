@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { type Module } from "../common/types";
+import { type Module } from "../common";
 
 function init({ modules }: { modules: Module[] }): Router {
   const router = Router();
