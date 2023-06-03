@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { type Module } from "../common";
+import { userModule } from "../modules";
 
 function init({ modules }: { modules: Module[] }): Router {
   const router = Router();
@@ -16,6 +17,8 @@ function init({ modules }: { modules: Module[] }): Router {
   return router;
 }
 
+const v1 = init({ modules: [userModule] });
+
 export default {
-  init,
+  v1,
 };

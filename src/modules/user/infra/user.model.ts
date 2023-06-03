@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
-import { type User } from "../domain/user.entity";
-import { Roles } from "../domain/user-roles.enum";
+import { Roles, type User } from "../domain";
 
 const UserSchema = new Schema<User>(
   {
