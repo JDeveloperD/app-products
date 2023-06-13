@@ -14,7 +14,7 @@ function init(): Express {
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
     .use("/api/v1", router.v1)
-    .use("/docs/v1", docsConfig.v1);
+    .use("/docs", docsConfig.init());
 }
 
 export default {

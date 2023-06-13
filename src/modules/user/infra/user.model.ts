@@ -1,5 +1,7 @@
+import type mongoose from "mongoose";
 import { model, Schema } from "mongoose";
 import { Roles, type User } from "../domain";
+import paginate from "mongoose-paginate-v2";
 
 const UserSchema = new Schema<User>(
   {
@@ -23,7 +25,7 @@ const UserSchema = new Schema<User>(
     },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     acceptedTerm: {
       type: Boolean,
@@ -48,6 +50,8 @@ const UserSchema = new Schema<User>(
   }
 );
 
-const UserModel = model("user", UserSchema);
+UserSchema.plugin(paginate);
+
+const UserModel = model<User, mongoose.PaginateModel<User>>("user", UserSchema);
 
 export default UserModel;

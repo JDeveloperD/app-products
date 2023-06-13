@@ -1,7 +1,11 @@
 import { type Request, type Response, Router } from "express";
-import { userUseCases } from "./user.deps";
 import * as either from "fp-ts/Either";
+import { userUseCases } from "./user.deps";
 import userMiddleware from "./user.middleware";
+import { type User } from "../domain";
+import { handleErrorResponse } from "../../../utils/handle-response";
+import { objectKeysToCamelCaseV2 } from "keys-converter";
+import { getUsersDto } from "../app/get-users/get-users.dto";
 
 const userRouter = Router();
 
@@ -10,7 +14,6 @@ const userController = {
     "/users/sign-up",
     async (req: Request, res: Response) => {
       const { email, password, acceptedTerm } = req.body;
-
       const result = await userUseCases.signUp.execute({
         email,
         password,
@@ -18,10 +21,7 @@ const userController = {
       });
 
       if (either.isLeft(result)) {
-        return res.status(400).json({
-          kind: "INVALID_DATA",
-          error: result.left,
-        });
+        return handleErrorResponse(res, result.left);
       }
 
       return res.json(result.right);
@@ -38,21 +38,13 @@ const userController = {
       });
 
       if (either.isLeft(result)) {
-        return res.status(401).json({
-          kind: "UNAUTHORIZED",
-          error: result.left,
-        });
+        return handleErrorResponse(res, result.left);
       }
 
       return res.json(result.right);
     }
   ),
-  DeleteUser: userRouter.delete(
-    "/users/:id",
-    (_req: Request, res: Response) => {
-      return res.json("ok");
-    }
-  ),
+
   GetUser: userRouter.get(
     "/users/:id",
     userMiddleware.requireAuth,
@@ -62,24 +54,47 @@ const userController = {
       const result = await userUseCases.getUser.execute({ id });
 
       if (either.isLeft(result)) {
-        return res.status(404).json({ kind: "NOT_FOUND", error: result.left });
+        return handleErrorResponse(res, result.left);
       }
 
-      return res.json({ user: result.right });
+      return res.json(result.right);
     }
   ),
   GetUsers: userRouter.get(
     "/users",
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
-    async (_req: Request, res: Response) => {
-      const result = await userUseCases.getUsers.execute(undefined);
+    async (req: Request, res: Response) => {
+      const query: any = objectKeysToCamelCaseV2(req.query);
+      const dto = getUsersDto(query);
+      const result = await userUseCases.getUsers.execute(dto);
+
       if (either.isLeft(result)) {
-        return res.json({ kind: "EMPTY" });
+        return handleErrorResponse(res, result.left);
       }
+
       const users = result.right;
 
-      return res.json({ users });
+      return res.json(users);
+    }
+  ),
+  DeleteUser: userRouter.delete(
+    "/users/:id",
+    userMiddleware.requireAuth,
+    userMiddleware.requireAdminRole,
+    async (req: Request, res: Response) => {
+      const id = req.params.id;
+      const userAuthenticated = req.user as User;
+      const result = await userUseCases.deleteUser.execute({
+        id,
+        role: userAuthenticated.role,
+      });
+
+      if (either.isLeft(result)) {
+        return handleErrorResponse(res, result.left);
+      }
+
+      return res.json("User deleted");
     }
   ),
 };

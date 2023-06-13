@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   bcrypt:
@@ -19,9 +23,15 @@ dependencies:
   jsonwebtoken:
     specifier: ^9.0.0
     version: 9.0.0
+  keys-converter:
+    specifier: ^3.0.4
+    version: 3.0.4
   module-alias:
     specifier: ^2.2.2
     version: 2.2.2
+  mongoose-paginate-v2:
+    specifier: ^1.7.1
+    version: 1.7.1
   morgan:
     specifier: ^1.10.0
     version: 1.10.0
@@ -31,6 +41,9 @@ dependencies:
   passport-jwt:
     specifier: ^4.0.1
     version: 4.0.1
+  serialize-query-params:
+    specifier: ^2.0.2
+    version: 2.0.2
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -4094,6 +4107,10 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: true
 
+  /keys-converter@3.0.4:
+    resolution: {integrity: sha512-OJi28V2DY4K+Xm28uAjRT8pIJYTzsQTk+7xeA3JB47/XpDUpQgNCSrOcJYI224oZD2SkKVU8r7KCliRUyifJTQ==}
+    dev: false
+
   /kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
@@ -4405,6 +4422,11 @@ packages:
     optionalDependencies:
       saslprep: 1.0.3
     dev: true
+
+  /mongoose-paginate-v2@1.7.1:
+    resolution: {integrity: sha512-J8DJw3zRXcXOKoZv+RvO9tt5HotRnbo2iCR3lke+TtsQsYwQvbY3EgUkPqZXw6qCX2IByvXrW5SGNdAB0od/Cw==}
+    engines: {node: '>=4.0.0'}
+    dev: false
 
   /mongoose@7.2.0:
     resolution: {integrity: sha512-sNNsPinfwBiqEZx24kBWZamebORFJ89wr0szw8SFzdy8OZLMxSDKwGUpfa8cLPsCV57z/beGUnaa0ZUGktNmcQ==}
@@ -5112,6 +5134,10 @@ packages:
       statuses: 2.0.1
     transitivePeerDependencies:
       - supports-color
+
+  /serialize-query-params@2.0.2:
+    resolution: {integrity: sha512-1chMo1dST4pFA9RDXAtF0Rbjaut4is7bzFbI1Z26IuMub68pNCILku85aYmeFhvnY//BXUPUhoRMjYcsT93J/Q==}
+    dev: false
 
   /serve-static@1.15.0:
     resolution: {integrity: sha512-XGuRDNjXUijsUL0vl6nSD7cwURuzEgglbOaFuZM9g3kwDXOWVTck0jLzjPzGD+TazWbboZYu52/9/XPdUgne9g==}

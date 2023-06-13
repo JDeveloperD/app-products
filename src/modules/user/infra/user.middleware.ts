@@ -1,6 +1,8 @@
 import passport from "passport";
 import { type NextFunction, type Request, type Response } from "express";
 import { type Role, type User } from "../domain";
+import { handleErrorResponse } from "../../../utils/handle-response";
+import { FailResponse } from "../../../common";
 
 const requireAuth = passport.authenticate("jwt", {
   session: false,
@@ -21,9 +23,9 @@ const requireRole = (roles: Role[]) => {
       return;
     }
 
-    return res.status(403).json({
-      kind: "UNAUTHORIZED",
-      error: "You do not have sufficient permissions for this action",
+    return handleErrorResponse(res, {
+      kind: FailResponse.UNAUTHORIZED,
+      message: "You do not have sufficient permissions for this action",
     });
   };
 };

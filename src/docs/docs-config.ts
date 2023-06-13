@@ -1,21 +1,19 @@
 import swaggerUi from "swagger-ui-express";
-import swaggerDocs from "./swagger.json";
+import openApiDocs from "./openapi.json";
 import { Router } from "express";
 
 function init(): Router {
   const docsRouter = Router();
 
   docsRouter.use(
-    "/users",
+    "/v1",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerDocs, { explorer: true })
+    swaggerUi.setup(openApiDocs, { explorer: true })
   );
 
   return docsRouter;
 }
 
-const v1 = init();
-
 export default {
-  v1,
+  init,
 };
