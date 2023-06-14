@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import router from "./router/router";
+import routerApi from "./router/api";
+import routerDocs from "./router/docs";
 import passport from "passport";
 import strategy from "./router/strategy";
-import docsConfig from "./docs/docs-config";
 
 function init(): Express {
   const app = express();
@@ -13,8 +13,8 @@ function init(): Express {
     .use(cors({}))
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
-    .use("/api/v1", router.v1)
-    .use("/docs", docsConfig.init());
+    .use("/api", routerApi.init())
+    .use("/docs", routerDocs.init());
 }
 
 export default {

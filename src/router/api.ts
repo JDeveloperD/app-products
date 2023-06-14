@@ -2,7 +2,7 @@ import { Router } from "express";
 import { type Module } from "../common";
 import { userModule } from "../modules";
 
-function init({ modules }: { modules: Module[] }): Router {
+function prepareRoutes({ modules }: { modules: Module[] }): Router {
   const router = Router();
 
   modules.forEach((module) => {
@@ -17,8 +17,13 @@ function init({ modules }: { modules: Module[] }): Router {
   return router;
 }
 
-const v1 = init({ modules: [userModule] });
+function init(): Router {
+  const apiRoutes = Router();
+  const v1 = prepareRoutes({ modules: [userModule] });
+  apiRoutes.use("/v1", v1);
+  return apiRoutes;
+}
 
 export default {
-  v1,
+  init,
 };
