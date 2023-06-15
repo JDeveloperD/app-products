@@ -6,6 +6,7 @@ import { type User } from "../domain";
 import { handleErrorResponse } from "../../../utils/handle-response";
 import { objectKeysToCamelCaseV2 } from "keys-converter";
 import { getUsersDto } from "../app/get-users/get-users.dto";
+import middleware from "../../../common/infra/middleware";
 
 const userRouter = Router();
 
@@ -47,10 +48,12 @@ const userController = {
 
   GetUser: userRouter.get(
     "/users/:id",
+    middleware.validateParamId,
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
     async (req: Request, res: Response) => {
       const id = req.params.id;
+
       const result = await userUseCases.getUser.execute({ id });
 
       if (either.isLeft(result)) {
@@ -80,6 +83,7 @@ const userController = {
   ),
   DeleteUser: userRouter.delete(
     "/users/:id",
+    middleware.validateParamId,
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
     async (req: Request, res: Response) => {
