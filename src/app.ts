@@ -3,14 +3,16 @@ import cors from "cors";
 import routerApi from "./router/api";
 import routerDocs from "./router/docs";
 import passport from "passport";
-import strategy from "./router/strategy";
+import passportAuthService from "./services/auth/passport-auth.service";
+import logger from "./utils/logger";
 
 function init(): Express {
   const app = express();
-  passport.use(strategy.getStrategy());
+  passport.use(passportAuthService.getJwtStrategy());
 
   return app
     .use(cors({}))
+    .use(logger.init())
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
     .use("/api", routerApi.init())

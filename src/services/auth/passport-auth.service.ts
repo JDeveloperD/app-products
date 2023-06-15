@@ -1,8 +1,9 @@
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
-import config from "../utils/config";
-import { userModule } from "../modules";
+import config from "../../utils/config";
+import { userModule } from "../../modules";
+import { FailResponse } from "../../common";
 
-function getStrategy(): JwtStrategy {
+function getJwtStrategy(): JwtStrategy {
   return new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -12,7 +13,11 @@ function getStrategy(): JwtStrategy {
       const user = await userModule.repository.getById(jwtPayload.id);
 
       if (user === null) {
-        done("Error");
+        done({
+          kind: FailResponse.ACCESS_DENIED,
+          message: "invalid credentials",
+        });
+
         return;
       }
 
@@ -22,5 +27,5 @@ function getStrategy(): JwtStrategy {
 }
 
 export default {
-  getStrategy,
+  getJwtStrategy,
 };
