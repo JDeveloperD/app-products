@@ -1,7 +1,7 @@
 import passport from "passport";
 import { type NextFunction, type Request, type Response } from "express";
 import { type Role, type User } from "../domain";
-import { handleErrorResponse } from "../../../utils/handle-response";
+import { handleErrorResponse } from "../../../utils/handle-response/handle-response";
 import { FailResponse } from "../../../common";
 
 const requireAuth = passport.authenticate("jwt", {

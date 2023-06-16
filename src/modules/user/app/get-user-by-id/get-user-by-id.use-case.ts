@@ -3,7 +3,7 @@ import { type GetUserByIdDto } from "./get-user-by-id.dto";
 import { type User, type UserRepository } from "../../domain";
 import { type UseCase } from "../../../../common";
 import { FailResponse } from "../../../../common/infra/response.enum";
-import { type ErrorResponse } from "../../../../utils/handle-response";
+import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
 
 export default function getUserByIdUseCase(
   repository: UserRepository

@@ -1,12 +1,12 @@
 import { type Request, type Response, Router } from "express";
 import * as either from "fp-ts/Either";
+import { objectKeysToCamelCaseV2 } from "keys-converter";
+import { type User } from "../domain";
+import { middleware } from "../../../common";
+import { handleErrorResponse } from "../../../utils/handle-response/handle-response";
 import { userUseCases } from "./user.deps";
 import userMiddleware from "./user.middleware";
-import { type User } from "../domain";
-import { handleErrorResponse } from "../../../utils/handle-response";
-import { objectKeysToCamelCaseV2 } from "keys-converter";
 import { getUsersDto } from "../app/get-users/get-users.dto";
-import middleware from "../../../common/infra/middleware";
 
 const userRouter = Router();
 

@@ -8,7 +8,7 @@ import {
 } from "../../domain";
 import { type UseCase } from "../../../../common";
 import emailValueObject from "../../../../common/domain/value-objects/email/email.value-object";
-import { type ErrorResponse } from "../../../../utils/handle-response";
+import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
 import { FailResponse } from "../../../../common/infra/response.enum";
 
 export default function signUpUseCase(
