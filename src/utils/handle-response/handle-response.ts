@@ -9,11 +9,9 @@ export interface ErrorResponse {
 }
 
 export function getResponseString(value: number): string | undefined {
-  const string = Object.keys(FailResponse).find(
+  return Object.keys(FailResponse).find(
     (key) => FailResponse[key as keyof typeof FailResponse] === value
   );
-
-  return string;
 }
 
 export function handleErrorResponse(

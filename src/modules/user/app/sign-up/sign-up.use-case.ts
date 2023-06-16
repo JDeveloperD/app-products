@@ -6,10 +6,12 @@ import {
   type User,
   type UserRepository,
 } from "../../domain";
-import { type UseCase } from "../../../../common";
-import emailValueObject from "../../../../common/domain/value-objects/email/email.value-object";
+import {
+  type UseCase,
+  FailResponse,
+  emailValueObject,
+} from "../../../../common";
 import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
-import { FailResponse } from "../../../../common/infra/response.enum";
 
 export default function signUpUseCase(
   repository: UserRepository
