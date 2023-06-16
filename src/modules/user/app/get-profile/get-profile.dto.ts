@@ -1,5 +1,5 @@
 import { type UserId } from "../../domain";
 
-export interface GetUserByIdDto {
+export interface GetProfileDto {
   id: UserId;
 }

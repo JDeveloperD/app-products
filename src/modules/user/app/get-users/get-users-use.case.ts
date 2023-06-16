@@ -9,7 +9,7 @@ import { type ErrorResponse } from "../../../../utils/handle-response/handle-res
 import { type GetUsersDto } from "./get-users.dto";
 import { FailResponse } from "../../../../utils/handle-response/response.enum";
 
-export default function getUsersUSeCase(
+export default function getUsersUseCase(
   repository: UserRepository
 ): UseCase<GetUsersDto, either.Either<ErrorResponse, PaginateResult<User>>> {
   return {

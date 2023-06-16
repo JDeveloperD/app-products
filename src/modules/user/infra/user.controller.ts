@@ -46,15 +46,15 @@ const userController = {
     }
   ),
 
-  GetUser: userRouter.get(
-    "/users/:id",
+  GetProfile: userRouter.get(
+    "/users/profile/:id",
     middleware.validateParamId,
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
     async (req: Request, res: Response) => {
       const id = req.params.id;
 
-      const result = await userUseCases.getUser.execute({ id });
+      const result = await userUseCases.getProfile.execute({ id });
 
       if (either.isLeft(result)) {
         return handleErrorResponse(res, result.left);
