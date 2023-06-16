@@ -5,8 +5,9 @@ import {
   tokenValueObject,
   type UserRepository,
 } from "../../domain";
-import { type UseCase, FailResponse } from "../../../../common";
+import { type UseCase } from "../../../../common";
 import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
+import { FailResponse } from "../../../../utils/handle-response/response.enum";
 
 export default function signInUseCase(
   repository: UserRepository

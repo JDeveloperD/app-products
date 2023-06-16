@@ -1,6 +1,6 @@
-import { type Role } from "../../user-roles.enum";
 import jwt from "jsonwebtoken";
 import config from "../../../../../utils/config";
+import { type Role } from "../../user-roles.enum";
 import { type UserId } from "../../user.entity";
 
 export type Token = string;

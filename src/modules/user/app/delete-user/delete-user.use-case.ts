@@ -1,7 +1,8 @@
 import * as either from "fp-ts/Either";
-import { type UseCase, FailResponse } from "../../../../common";
+import { type UseCase } from "../../../../common";
 import { type Role, type UserId, type UserRepository } from "../../domain";
 import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
+import { FailResponse } from "../../../../utils/handle-response/response.enum";
 
 export interface DeleteUserDto {
   id: UserId;

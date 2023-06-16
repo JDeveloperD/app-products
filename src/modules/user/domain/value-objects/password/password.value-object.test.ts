@@ -51,7 +51,7 @@ describe("passwordValueObject.createPassword_function", () => {
   //
   // Tests that passwordValueObject.createPassword returns a left Either type with an error message when password length is above the maximum valid length.
   test("test_create_password_returns_left_with_password_above_max_length", () => {
-    const password: PasswordProps = { value: "thispasswordistoolong" };
+    const password: PasswordProps = { value: "thispasswordistoolong1" };
     const result = passwordValueObject.createPassword(password);
     expect(result._tag).toBe("Left");
     expect(getLeft(result)).toEqual(some(ERROR_INVALID_PASSWORD_MAX_LENGTH));

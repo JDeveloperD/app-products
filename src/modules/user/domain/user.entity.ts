@@ -4,6 +4,10 @@ import { type UID } from "../../../common";
 
 export type UserId = UID;
 
+export const ERROR_NOT_PERMISSIONS =
+  "You do not have sufficient permissions for this action";
+export const ERROR_NOT_AUTHORIZED = "Not authorized";
+
 export interface User {
   id: UserId;
   email: string;

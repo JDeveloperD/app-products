@@ -7,14 +7,14 @@ export interface EmailProps {
   value: string;
 }
 
-const createEmail = ({ value }: EmailProps): Either<string, EmailProps> => {
-  const isValid = isValidEmail(value);
+const createEmail = (email: EmailProps): Either<string, EmailProps> => {
+  const isValid = isValidEmail(email.value);
 
   if (!isValid) {
     return left(ERROR_INVALID_EMAIL_FORMAT);
   }
 
-  const lowerCaseEmail = value.toLowerCase();
+  const lowerCaseEmail = email.value.toLowerCase();
 
   return right({ value: lowerCaseEmail });
 };

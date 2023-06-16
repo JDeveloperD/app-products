@@ -2,12 +2,12 @@ import * as either from "fp-ts/Either";
 import { type User, type UserRepository } from "../../domain";
 import {
   type UseCase,
-  FailResponse,
   type PaginateResult,
   type PaginateOptions,
 } from "../../../../common";
 import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
 import { type GetUsersDto } from "./get-users.dto";
+import { FailResponse } from "../../../../utils/handle-response/response.enum";
 
 export default function getUsersUSeCase(
   repository: UserRepository

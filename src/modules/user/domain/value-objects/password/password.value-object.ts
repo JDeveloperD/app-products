@@ -1,7 +1,7 @@
 import * as either from "fp-ts/Either";
 import bcrypt from "bcrypt";
 
-export const MIN_PASSWORD_LENGTH = 5;
+export const MIN_PASSWORD_LENGTH = 6;
 export const MAX_PASSWORD_LENGTH = 21;
 export const ERROR_REQUIRED_PASSWORD = "Password is required";
 export const ERROR_INVALID_PASSWORD_MIN_LENGTH = `Password should has min ${MIN_PASSWORD_LENGTH}`;

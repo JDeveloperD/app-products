@@ -1,8 +1,9 @@
 import * as either from "fp-ts/Either";
 import { type GetUserByIdDto } from "./get-user-by-id.dto";
 import { type User, type UserRepository } from "../../domain";
-import { type UseCase, FailResponse } from "../../../../common";
+import { type UseCase } from "../../../../common";
 import { type ErrorResponse } from "../../../../utils/handle-response/handle-response";
+import { FailResponse } from "../../../../utils/handle-response/response.enum";
 
 export default function getUserByIdUseCase(
   repository: UserRepository
