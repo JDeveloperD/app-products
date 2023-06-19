@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.1.0",
+    "title": "App Products",
+    "description": "Descripción de tu API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Todo sobre los usuarios"
+    }
+  ],
+  "paths": {
+    "/users/sign-in": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Iniciar sesión",
+        "description": "Permite a los usuarios iniciar sesión en la aplicación.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email del usuario",
+                    "example": "dev@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Contraseña del usuario",
+                    "example": "password213"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso."
+          },
+          "401": {
+            "description": "Credenciales inválidas."
+          },
+          "500": {
+            "description": "Error del servidor."
+          }
+        }
+      }
+    },
+    "/users/sign-up": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Registrarse como cliente",
+        "description": "Permite a los usuarios registrarse como clientes, no tienen permisos de administrador.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Email del usuario",
+                    "example": "client_1@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Contraseña del usuario",
+                    "example": "password213"
+                  },
+                  "acceptedTerm": {
+                    "type": "boolean",
+                    "required": true,
+                    "description": "Inidica si el usuario aceptó los terminos y condiciones",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registro exitoso."
+          },
+          "400": {
+            "description": "Datos de registro incorrectos."
+          },
+          "500": {
+            "description": "Error del servidor."
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Obtiene una lista de los usuarios",
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios obtenida correctamente"
+          },
+          "401": {
+            "description": "Requiere autenticación"
+          },
+          "403": {
+            "description": "Necesita permisos de administrador"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Obtiene un usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Identificador del usuario",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado"
+          },
+          "401": {
+            "description": "Requiere autenticación"
+          },
+          "403": {
+            "description": "Necesita permisos de administrador"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Eliminar un usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Identificador del usuario",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Requiere autenticación"
+          },
+          "403": {
+            "description": "Necesita permisos de administrador"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID del usuario",
+            "example": "12esfsdfsdfdsfsdf4324w2432s"
+          },
+          "email": {
+            "type": "string",
+            "description": "Correo electrónico del usuario",
+            "example": "client@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario",
+            "example": "password213"
+          },
+          "acceptedTerm": {
+            "type": "boolean",
+            "description": "Aceptación de los terminos y condiciones",
+            "default": false
+          },
+          "role": {
+            "type": "string",
+            "enum": ["DEVELOPER", "ADMIN", "CLIENT"],
+            "default": "CLIENT"
+          },
+          "isTheEmailConfirmed": {
+            "type": "boolean",
+            "description": "Email confirmado",
+            "default": false
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Cuenta activada",
+            "default": false
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Ingresa el token con el prefijo `Bearer ${token}`"
+      }
+    }
+  }
+}
