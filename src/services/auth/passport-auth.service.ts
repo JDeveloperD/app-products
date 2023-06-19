@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import config from "../../utils/config";
 import { userModule } from "../../modules";
-import { FailResponse } from "../../common";
+import { FailResponse } from "../../utils/handle-response/response.enum";
 
 function getJwtStrategy(): JwtStrategy {
   return new JwtStrategy(

@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { FailResponse } from "../../common";
 import httpError from "http-errors";
 import { isDev, isTest } from "../env";
+import { FailResponse } from "./response.enum";
 
 export interface ErrorResponse {
   kind: FailResponse;
