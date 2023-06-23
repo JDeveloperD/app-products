@@ -24,13 +24,13 @@ Additional aspects:
 */
 
 import { describe, expect, test } from "@jest/globals";
+import { getLeft, getRight, some } from "fp-ts/Option";
 import passwordValueObject, {
   ERROR_INVALID_PASSWORD_MAX_LENGTH,
   ERROR_INVALID_PASSWORD_MIN_LENGTH,
   ERROR_REQUIRED_PASSWORD,
   type PasswordProps,
 } from "./password.value-object";
-import { getLeft, getRight, some } from "fp-ts/Option";
 
 describe("passwordValueObject.createPassword_function", () => {
   // Tests that passwordValueObject.createPassword returns a right Either type with a valid password.

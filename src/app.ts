@@ -1,8 +1,8 @@
 import express, { type Express } from "express";
 import cors from "cors";
+import passport from "passport";
 import routerApi from "./router/api";
 import routerDocs from "./router/docs";
-import passport from "passport";
 import passportAuthService from "./services/auth/passport-auth.service";
 import logger from "./utils/logger";
 import {

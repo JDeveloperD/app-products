@@ -9,7 +9,7 @@ function getJwtStrategy(): JwtStrategy {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: config.JWT_SECRET_ACCESS_KEY,
     },
-    async function (jwtPayload, done) {
+    async (jwtPayload, done) => {
       const user = await userModule.repository.getById(jwtPayload.id);
 
       if (user === null) {

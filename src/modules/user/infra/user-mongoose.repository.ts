@@ -5,7 +5,7 @@ import { type PaginateResult } from "../../../common";
 export default function userMongooseRepository(): UserRepository {
   return {
     async countResources(filters = {}): Promise<number> {
-      return await UserModel.countDocuments(filters).exec();
+      return UserModel.countDocuments(filters).exec();
     },
     async save({
       email,
@@ -13,19 +13,19 @@ export default function userMongooseRepository(): UserRepository {
       role,
       acceptedTerm,
     }: Partial<User>): Promise<User> {
-      return await UserModel.create({ email, password, role, acceptedTerm });
+      return UserModel.create({ email, password, role, acceptedTerm });
     },
     async delete(id: UserId): Promise<void> {
       await UserModel.deleteOne({ _id: id });
     },
     async getById(id: UserId): Promise<User | null> {
-      return await UserModel.findOne({ _id: id }, { password: 0 });
+      return UserModel.findOne({ _id: id }, { password: 0 });
     },
     async find({
       filters = {},
       paginationOptions,
     }): Promise<PaginateResult<User>> {
-      return await UserModel.paginate(filters, {
+      return UserModel.paginate(filters, {
         ...paginationOptions,
         select: "-password",
       });
@@ -38,7 +38,7 @@ export default function userMongooseRepository(): UserRepository {
       return user !== null;
     },
     async findByEmail(email: string): Promise<User | null> {
-      return await UserModel.findOne({ email });
+      return UserModel.findOne({ email });
     },
   };
 }

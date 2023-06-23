@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle, no-param-reassign */
 import type mongoose from "mongoose";
 import { model, Schema } from "mongoose";
-import { Roles, type User } from "../domain";
 import paginate from "mongoose-paginate-v2";
+import { Roles, type User } from "../domain";
 
 const UserSchema = new Schema<User>(
   {

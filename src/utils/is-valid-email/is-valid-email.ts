@@ -1,5 +1,5 @@
 import isEmail from "validator/lib/isEmail";
 
-export const isValidEmail = (email: string): boolean => {
-  return isEmail(email);
-};
+const isValidEmail = (email: string): boolean => isEmail(email);
+
+export default isValidEmail;

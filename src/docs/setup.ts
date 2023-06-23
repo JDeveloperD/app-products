@@ -1,4 +1,8 @@
 import swaggerUi from "swagger-ui-express";
 import openApiDocs from "./openapi.json";
 
-export const docsSetup = swaggerUi.setup(openApiDocs, { explorer: true });
+const setup = () => swaggerUi.setup(openApiDocs, { explorer: true });
+
+export default {
+  setup,
+};

@@ -10,11 +10,10 @@ export interface TokenPayload {
   role: Role;
 }
 
-const createToken = (payload: TokenPayload): Token => {
-  return jwt.sign(payload, config.JWT_SECRET_ACCESS_KEY, {
+const createToken = (payload: TokenPayload): Token =>
+  jwt.sign(payload, config.JWT_SECRET_ACCESS_KEY, {
     expiresIn: 60 * 60 * 12,
   });
-};
 
 export default {
   createToken,

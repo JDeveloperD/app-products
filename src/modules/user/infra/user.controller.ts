@@ -52,7 +52,7 @@ const userController = {
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
     async (req: Request, res: Response) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       const result = await userUseCases.getProfile.execute({ id });
 
@@ -87,7 +87,7 @@ const userController = {
     userMiddleware.requireAuth,
     userMiddleware.requireAdminRole,
     async (req: Request, res: Response) => {
-      const id = req.params.id;
+      const { id } = req.params;
       const userAuthenticated = req.user as User;
       const result = await userUseCases.deleteUser.execute({
         id,

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import mongoose from "mongoose";
 import signInUseCase from "./sign-in.use-case";
 import { type User } from "../../domain";
-import mongoose from "mongoose";
 
 describe("sign-in.use-case", () => {
   let userRepo: any;

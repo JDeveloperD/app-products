@@ -20,33 +20,26 @@ export interface User {
   updatedAt: Date;
 }
 
-const createUser = (user: User): either.Either<never, User> => {
-  return either.right(user);
-};
+const createUser = (user: User): either.Either<never, User> =>
+  either.right(user);
 
-const toggleActivate = (user: User): User => {
-  return {
-    ...user,
-    isActive: !user.isActive,
-    updatedAt: new Date(),
-  };
-};
+const toggleActivate = (user: User): User => ({
+  ...user,
+  isActive: !user.isActive,
+  updatedAt: new Date(),
+});
 
-const confirmEmail = (user: User): User => {
-  return {
-    ...user,
-    isTheEmailConfirmed: true,
-    updatedAt: new Date(),
-  };
-};
+const confirmEmail = (user: User): User => ({
+  ...user,
+  isTheEmailConfirmed: true,
+  updatedAt: new Date(),
+});
 
-const changeRole = ({ user, role }: { user: User; role: Role }): User => {
-  return {
-    ...user,
-    role,
-    updatedAt: new Date(),
-  };
-};
+const changeRole = ({ user, role }: { user: User; role: Role }): User => ({
+  ...user,
+  role,
+  updatedAt: new Date(),
+});
 
 export default {
   createUser,

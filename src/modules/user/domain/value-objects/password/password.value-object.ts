@@ -30,14 +30,12 @@ const createPassword = (
 const comparePassword = async (
   hash: string,
   plainText: string
-): Promise<boolean> => {
-  return await bcrypt.compare(plainText, hash);
-};
+): Promise<boolean> => bcrypt.compare(plainText, hash);
 
 const encryptPassword = async (plainText: string): Promise<string> => {
   const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
-  return await bcrypt.hash(plainText, salt);
+  return bcrypt.hash(plainText, salt);
 };
 
 export default {

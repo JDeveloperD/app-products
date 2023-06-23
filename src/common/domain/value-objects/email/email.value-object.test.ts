@@ -22,11 +22,11 @@ Additional aspects:
 */
 
 import { describe, expect, it } from "@jest/globals";
+import { getLeft, getRight, some } from "fp-ts/Option";
 import emailValueObject, {
   type EmailProps,
   ERROR_INVALID_EMAIL_FORMAT,
 } from "./email.value-object";
-import { getLeft, getRight, some } from "fp-ts/Option";
 
 describe("createEmail_function", () => {
   // Tests that a valid email is correctly processed
@@ -55,7 +55,7 @@ describe("createEmail_function", () => {
 
   // Tests that a too long email is correctly processed
   it("test_long_email", () => {
-    const email: EmailProps = { value: "a".repeat(320) + "@example.com" };
+    const email: EmailProps = { value: `${"a".repeat(320)}@example.com` };
     const result = emailValueObject.createEmail(email);
     expect(result._tag).toBe("Left");
     expect(getLeft(result)).toStrictEqual(some(ERROR_INVALID_EMAIL_FORMAT));

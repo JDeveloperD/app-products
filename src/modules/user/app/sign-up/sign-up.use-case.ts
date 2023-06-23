@@ -1,5 +1,5 @@
-import { type SignUpDto } from "./sign-up.dto";
 import * as either from "fp-ts/Either";
+import { type SignUpDto } from "./sign-up.dto";
 import {
   passwordValueObject,
   type Role,
@@ -14,9 +14,7 @@ export default function signUpUseCase(
   repository: UserRepository
 ): UseCase<SignUpDto, either.Either<ErrorResponse, User>> {
   return {
-    execute: async function (
-      dto: SignUpDto
-    ): Promise<either.Either<ErrorResponse, User>> {
+    async execute(dto: SignUpDto): Promise<either.Either<ErrorResponse, User>> {
       if (!dto.acceptedTerm) {
         return either.left({
           kind: FailResponse.INVALID_DATA,

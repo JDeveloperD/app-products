@@ -8,8 +8,8 @@ const requireAuth = passport.authenticate("jwt", {
   session: false,
 });
 
-const requireRole = (roles: Role[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+const requireRole =
+  (roles: Role[]) => (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as User;
     if (user.role === "DEVELOPER") {
       next();
@@ -23,12 +23,11 @@ const requireRole = (roles: Role[]) => {
       return;
     }
 
-    return handleErrorResponse(res, {
+    handleErrorResponse(res, {
       kind: FailResponse.UNAUTHORIZED,
       message: ERROR_NOT_PERMISSIONS,
     });
   };
-};
 
 const requireAdminRole = requireRole(["ADMIN"]);
 

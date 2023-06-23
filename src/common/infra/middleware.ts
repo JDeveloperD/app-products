@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
+import * as either from "fp-ts/Either";
 import uidValueObject from "../domain/value-objects/uid/uid.value-object";
 import { handleErrorResponse } from "../../utils/handle-response/handle-response";
 import { FailResponse } from "../../utils/handle-response/response.enum";
-import * as either from "fp-ts/Either";
 
 export function validateParamId(
   req: Request,

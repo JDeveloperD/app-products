@@ -22,8 +22,8 @@ Additional aspects:
 */
 
 import { describe, expect, it } from "@jest/globals";
-import uidValueObject from "./uid.value-object";
 import mongoose from "mongoose";
+import uidValueObject from "./uid.value-object";
 
 describe("isValidUID_function", () => {
   // Tests that a valid ObjectId as string returns true

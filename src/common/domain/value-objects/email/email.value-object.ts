@@ -1,5 +1,5 @@
 import { type Either, left, right } from "fp-ts/Either";
-import { isValidEmail } from "../../../../utils/is-valid-email/is-valid-email";
+import isValidEmail from "../../../../utils/is-valid-email/is-valid-email";
 
 export const ERROR_INVALID_EMAIL_FORMAT = "Invalid email format";
 
