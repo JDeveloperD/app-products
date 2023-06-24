@@ -8,7 +8,7 @@ function init(): void {
   mongoose
     .connect(url)
     .then(() => {
-      console.log(`✔️ [DB] =>${url}`);
+      console.log(`✔️ [database] => ${url}`);
       if (isDev || isTest) {
         mongoose.set("debug", true);
         console.log(mongoose.models);

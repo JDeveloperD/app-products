@@ -1,30 +1,58 @@
-import express, { type Express } from "express";
+import "reflect-metadata";
+import { InversifyExpressServer } from "inversify-express-utils";
+import * as express from "express";
+import * as http from "http";
 import cors from "cors";
-import passport from "passport";
-import routerApi from "./router/api";
-import routerDocs from "./router/docs";
-import passportAuthService from "./services/auth/passport-auth.service";
 import logger from "./utils/logger";
-import {
-  generalErrorHandler,
-  handleNotFoundRoute,
-} from "./utils/handle-response/handle-response";
+import mongoDbService from "./services/database/mongo-db.service";
+import config from "./utils/config";
+import modules from "./modules";
 
-function init(): Express {
-  const app = express();
-  passport.use(passportAuthService.getJwtStrategy());
-
-  return app
-    .use(cors({}))
-    .use(logger.init())
-    .use(express.json())
-    .use(express.urlencoded({ extended: false }))
-    .use("/api", routerApi.init())
-    .use("/docs", routerDocs.init())
-    .use(handleNotFoundRoute)
-    .use(generalErrorHandler);
+interface ServerOptions {
+  host: string;
+  port: number;
 }
 
-export default {
-  init,
-};
+export default class App {
+  private static instance: App;
+
+  private server: InversifyExpressServer;
+
+  private constructor(private readonly serverOptions: ServerOptions) {
+    this.server = new InversifyExpressServer(modules.container, null, {
+      rootPath: "/api/v1",
+    }).setConfig((app: express.Application) => {
+      app
+        .use(cors())
+        .use(logger.init())
+        .use(express.json({ limit: "1mb" }))
+        .use(express.urlencoded({ extended: true }));
+    });
+  }
+
+  public static getInstance(): App {
+    if (!App.instance) {
+      App.instance = new App({
+        port: Number(config.PORT),
+        host: config.HOST,
+      });
+    }
+
+    return App.instance;
+  }
+
+  public buildApp(): express.Application {
+    return this.server.build();
+  }
+
+  public serverStart(): void {
+    mongoDbService.init();
+    const app = this.buildApp();
+
+    http.createServer(app).listen(this.serverOptions.port, () => {
+      console.log(
+        `✔️ [server] => ${`${this.serverOptions.host}:${this.serverOptions.port}`} `
+      );
+    });
+  }
+}

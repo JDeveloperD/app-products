@@ -1,5 +1,2 @@
-export { default as tokenValueObject } from "./value-objects/token/token.value-object";
-export { default as passwordValueObject } from "./value-objects/password/password.value-object";
-export * from "./user-roles.enum";
+export { default as UserEntity } from "./user.entity";
 export * from "./user.repository";
-export * from "./user.entity";
